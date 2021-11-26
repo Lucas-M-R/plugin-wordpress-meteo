@@ -1,0 +1,2 @@
+<?php
+// $currentweather = new Openweather();
