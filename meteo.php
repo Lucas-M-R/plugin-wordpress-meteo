@@ -8,6 +8,15 @@ Version: Alpha
 Author URI: https://lucasm.promo-93.codeur.online/portfolio
 */
 
+
+
+// function loadClass($class) {
+//   require __DIR__ . '/includes/Models/'.$class.'Class.php';
+// }
+// spl_autoload_register ('loadClass');
+
+
+
 function lienDeMenu(){
   add_menu_page(
     'Meteo menu', //titre de la page
@@ -22,16 +31,11 @@ define(SHORTINIT, true);
 include('C:\Users\lucas\OneDrive\ACS\PROJETS\PROJET_8 Meteo\wordpress\wp-load.php'); 
 // ^^^^^^^c'est pas beau mais pour l'instant ça fait le café//
 
-
-
-// wp-content\plugins\meteo\meteo.php
-// C:\Users\lucas\OneDrive\ACS\PROJETS\PROJET_8 Meteo\wordpress\wp-load.php
-// function loadClass($class) {
-//   require __DIR__ . '/includes/Models/'.$class.'Class.php';
-// }
-// spl_autoload_register ('loadClass');
-
+require_once  __DIR__ . '/includes/Models/DatabaseClass.php';
+require_once  __DIR__ . '/includes/Models/OpenweatherClass.php';
 // require  __DIR__ . '/includes/Views/currentweather.php';
+
+
 /* Shortcode – Google Maps Integration */
 
 // $curl = curl_init('https://api.openweathermap.org/data/2.5/weather?q=fay-en-montagne&APPID=55443e07418a117cdc0e7f607f08fc53&lang=fr&units=metric');
