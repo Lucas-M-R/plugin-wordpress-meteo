@@ -11,4 +11,5 @@ global $wpdb;
 
 
 
+require (__DIR__ . ('/../includes/Views/configuration.php'));
 require (__DIR__ . ('/../includes/Views/currentweather.php'));

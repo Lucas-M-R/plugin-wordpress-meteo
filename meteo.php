@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Meteo Maximum Weather
+Plugin Name: Meteo Maximum Weather Plus Saga
 Plugin URI: https://accescodeschool.fr/
 Description: Voici un plugin pour avoir la météo sur son site 
-Author: Lucas Morille-Roy ACS 
+Author: Lucas Morille-Roy, ACS 
 Version: Alpha
 Author URI: https://lucasm.promo-93.codeur.online/portfolio
 */
@@ -15,6 +15,7 @@ Author URI: https://lucasm.promo-93.codeur.online/portfolio
 // }
 // spl_autoload_register ('loadClass');
 
+require_once  __DIR__ . '/includes/Views/header.php';
 
 
 function lienDeMenu(){
@@ -28,34 +29,14 @@ function lienDeMenu(){
 add_action('admin_menu', 'lienDeMenu');
 
 define(SHORTINIT, true);
-include('C:\Users\lucas\OneDrive\ACS\PROJETS\PROJET_8 Meteo\wordpress\wp-load.php'); 
-// ^^^^^^^c'est pas beau mais pour l'instant ça fait le café//
-
+require_once (ABSPATH . 'wp-load.php'); 
+require_once ( ABSPATH . 'wp-admin/includes/upgrade.php' );
 require_once  __DIR__ . '/includes/Models/DatabaseClass.php';
 require_once  __DIR__ . '/includes/Models/OpenweatherClass.php';
+$DBW = new DBWeather();
+register_activation_hook( __FILE__, array( __FILE__, 'createTables' ) );
+// $this->connect();
 // require  __DIR__ . '/includes/Views/currentweather.php';
-
-
-/* Shortcode – Google Maps Integration */
-
-// $curl = curl_init('https://api.openweathermap.org/data/2.5/weather?q=fay-en-montagne&APPID=55443e07418a117cdc0e7f607f08fc53&lang=fr&units=metric');
-
-// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-// $data = curl_exec($curl);
-// $data = json_decode($data, true);
-// echo '<pre>';
-// echo "il fait ". $data['main']['temp'] . "°C à " . $data['name'];
-// echo '</pre>';
-// if ($data === false){
-//   var_dump((curl_error($curl)));
-
-// } else {
-//   echo '<pre>';
-//  var_dump(($curl));
-//  echo '</pre>';
-// }
-// curl_close($curl);
-
 
 // function fn_googleMaps($atts, $content = null) {
 //     extract(shortcode_atts(array(
@@ -68,18 +49,5 @@ require_once  __DIR__ . '/includes/Models/OpenweatherClass.php';
 //  add_shortcode("googlemap", "fn_googleMaps") ;
 // // utilisation du shortcode: [googlemap]
 
-//  function notre_fonction($param) {
-//    extract(
-//      shortcode_atts(
-//        array(
-//          'prenom' => 'Jean',
-//          'nom' => 'Dupontel',
-//          'age' => 32
-//        ),
-//        $param
-//      )
-//    );
-//    return $prenom . ' ' . $nom . ' a ' . $age . ' ans.';
-//  };
-//  echo notre_fonction($param);
+
  ?>

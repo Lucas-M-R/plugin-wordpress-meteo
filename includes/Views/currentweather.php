@@ -1,7 +1,7 @@
 <?php
 
 
-$location = 'moscow';
+$location = 'fay-en-montagne';
 $currentWeather = new Openweather();
 $weather = $currentWeather->getCurrentWeather($location);
 $weatherImg = 'http://openweathermap.org/img/wn/' . $weather["weatherIcon"] . '@2x.png';
@@ -12,8 +12,7 @@ $accordCardinal = $wind->accordCardinal($windDirection);
 
 
 
-
-// resultats de la requette : 
+// Pour obtenir les resultats de la requette : 
 //      
 //   $weather['temp']
 //   $weather['feels_like']

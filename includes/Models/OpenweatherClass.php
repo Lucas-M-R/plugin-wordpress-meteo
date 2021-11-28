@@ -10,6 +10,14 @@ class Openweather
   public $lang = 'fr';
   public $units = 'metric';
 
+public function setOpenWeather(){
+  $APPID = $_POST['appid'];
+  
+}
+
+
+
+
   public function getCurrentWeather($location)
   {
     // $codb = new Database;
