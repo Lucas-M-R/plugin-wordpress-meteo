@@ -24,11 +24,11 @@ function lienDeMenu(){
     plugin_dir_path(__FILE__).'/admin/meteo-admin.php'   // lien vers la page où on doit arriver quand on est sur le menu
   );
 }
-
+$contentpagemeteo = include __DIR__ . '/includes/Views/meteopage.php';
 function initialization(){
   $page_array = array (
     'post_title' => 'coucou tout le monde',
-    'post_content' => '',
+    'post_content' => $contentpagemeteo,
     'post_status' => 'publish',
     'post_type' => 'page',
     'post_author' => get_current_user_id(),
@@ -66,10 +66,12 @@ require_once  __DIR__ . '/includes/Models/DataClass.php';
 require_once  __DIR__ . '/includes/Models/OpenweatherClass.php';
 require_once  __DIR__ . '/includes/Models/Communes.php';
 require_once  __DIR__ . '/includes/Controllers/Controller.php';
-// $DBW = new DBWeather();
-// $DBW->installation()
-// register_activation_hook( __FILE__, array( __FILE__, 'installation' ) );
-// register_activation_hook( __FILE__, 'installation');
-// $this->connect();
 
+
+wp_enqueue_script ( 'script_meteo_plugin', __DIR__ . '/js/script_meteo_plugin.js', true );
+
+// function script_meteo_plugin() {
+//     wp_enqueue_script( 'script_meteo_plugin', plugins_url( '/js/script_meteo_plugin.js', __FILE__ ), '1.0.0.', true);
+// }
+// add_action('wp_enqueue_scripts','script_meteo_plugin');
 ?>

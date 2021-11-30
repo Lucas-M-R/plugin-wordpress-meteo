@@ -16,6 +16,12 @@ class Openweather
     if (isset($_POST['appid']) && !empty($_POST['appid'])) {
       $this->appidOpenWeather();
     }
+    global $wpdb;
+    $key = $wpdb->get_row('SELECT option_value FROM ' . $wpdb->prefix . 'options WHERE option_name = "APPID"');
+    if (isset($key)){
+      $this->APPID = $key->option_value;
+    }
+    echo($key->option_value);
   }
   // forecast 4 jour => https://api.openweathermap.org/data/2.5/forecast?callback=response&q=Jouhe&appid=55443e07418a117cdc0e7f607f08fc53&lang=fr&units=metric
 
@@ -70,9 +76,9 @@ class Openweather
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $data = curl_exec($curl);
     $data = json_decode($data, true);
-    echo "<pre>";
-    var_dump($data);
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump($data);
+    // echo "</pre>";
 
     if ($data === false) {
       var_dump((curl_error($curl)));

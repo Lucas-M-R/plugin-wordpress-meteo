@@ -1,7 +1,7 @@
 <?php
 class Communes
 {
-
+    public $SearchedCommune = '';
 
 
     
@@ -17,10 +17,17 @@ class Communes
         global $wpdb;
         $search = sanitize_text_field($_POST['communeSearch']);
         $table_name_communes = $wpdb->prefix . 'meteo_plugin_communes';
-        $result =  $wpdb->get_results('SELECT nom FROM ' . $table_name_communes . ' WHERE codepostal LIKE "%' . $search . '%" OR nom LIKE "%' . $search . '%" LIMIT 15;', ARRAY_A);
-        // $resultJSON = json_encode($result);
-        // echo $resultJSON;
-        var_dump($result);
+        $results =  $wpdb->get_results('SELECT nom FROM ' . $table_name_communes . ' WHERE codepostal LIKE "%' . $search . '%" OR nom LIKE "%' . $search . '%" LIMIT 15;', ARRAY_A);
+        $resultJSON = json_encode($results, TRUE);
+        echo '<datalist id="communes">';        
+        foreach ($results as $key => $result){
+            echo '<option value="' . $results[$key]['nom'] . '">';
+        } 
+        echo "</datalist>";
+        
+
+        // $coco = $result->nom->{'1'};
+        // var_dump($coco);
     }
 
     public function setCommunes()
