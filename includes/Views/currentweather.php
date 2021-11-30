@@ -6,7 +6,7 @@ $currentWeather = new Openweather();
 $weather = $currentWeather->getCurrentWeather($location);
 $weatherImg = 'http://openweathermap.org/img/wn/' . $weather["weatherIcon"] . '@2x.png';
 $wind = new Openweather();
-$windDirection = $wind->wind_cardinals('150');
+$windDirection = $wind->wind_cardinals($weather['wind_deg']);
 $accordCardinal = $wind->accordCardinal($windDirection);
 
 

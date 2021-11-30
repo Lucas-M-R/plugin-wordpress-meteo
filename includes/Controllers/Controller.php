@@ -9,9 +9,9 @@ public static function adminPage(){
         $comm->setCommunes();
     }
 
-    if (isset($_POST['appid'])) {
-        $appid = strip_tags($_POST['appid']);
-        echo 'voici votre appId: ' . $appid . '<br>';
-    }
+    // if (isset($_POST['appid'])) {
+    // ob_start();
+    // require_once (__DIR__ . ('/../Models/OpenweatherClass.php'));
+    // }
 
 }}

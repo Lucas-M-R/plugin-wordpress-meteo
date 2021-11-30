@@ -1,8 +1,32 @@
+
+
+<?php 
+function appiform(){
+
+    global $wpdb;
+    $table_name = $wpdb->prefix.'options';
+    $appi = $wpdb->get_row("SELECT option_value FROM $table_name WHERE option_name = 'APPID'", ARRAY_A);
+    // var_dump($appi);
+    // echo $appi['option_value'];
+    if (is_null($appi)){
+        echo 'placeholder="Entre votre clé API ici"';
+    } else {        
+        echo 'value="'.$appi["option_value"].'"';
+    }
+} ?>
+
+
 <form action="" method="POST">
     <h4>Pour obtenir une clé API il vous faut vous inscrire sur <a href="https://openweathermap.org" target="blank">Openweather</a><h4><br>
-    <input type="text" name="appid" placeholder="collez votre appId ici">
+    <input type="text" name="appid" <?= appiform() ?>>
     <button class="btn btn-outline-secondary btn-sm" type="submit" >Enregistrer la clé API</button>
 </form>
+
+
+
+
+
+
 
 <form action="" method="POST">
     <select name="lang" id="langChoice">

@@ -4,27 +4,102 @@
 class Openweather
 {
 
-  public $APPID = '55443e07418a117cdc0e7f607f08fc53';
+  public $APPID = '';
   public $city = '';
   public $country = '';
   public $lang = 'fr';
   public $units = 'metric';
+  
 
-public function __construct(){
-    if (isset ($_POST['appid']) && !empty ($_POST['appid'])){
+  public function __construct()
+  {
+    if (isset($_POST['appid']) && !empty($_POST['appid'])) {
       $this->appidOpenWeather();
     }
   }
-// forecast 4 jour => https://api.openweathermap.org/data/2.5/forecast?callback=response&q=Jouhe&appid=55443e07418a117cdc0e7f607f08fc53&lang=fr&units=metric
+  // forecast 4 jour => https://api.openweathermap.org/data/2.5/forecast?callback=response&q=Jouhe&appid=55443e07418a117cdc0e7f607f08fc53&lang=fr&units=metric
 
-  public function appidOpenWeather(){
-    $APPID = strip_tags($_POST['appid']);    
+  public function appidOpenWeather()
+  {
+    global $wpdb;
+    // $APPID = strip_tags($_POST['appid']);
+    $this->APPID = strip_tags($_POST['appid']);
+    $table = $wpdb->prefix . 'options';
+    $data = array(
+      'option_name' => 'APPID',
+      'option_value' => $this->APPID
+    );
+    $format = array ('%s', '%s');
+    $wpdb->insert($table,$data,$format);
+    $my_id = $wpdb-> insert_id;
+    echo $this->APPID;
+    // echo $my_id;
+
+
+//     $sql =
+//     "CREATE TABLE $table_name_shortcodes (
+//     id int(9) unsigned NOT NULL auto_increment ,
+//     shortcode varchar(30) NULL,
+//     PRIMARY KEY  (id))";
+
+// dbDelta($sql);
+
+
+    // $insertappid = "
+    // INSERT INTO 
+    // $table_name_option (
+    //   option_name, 
+    //   option_value) 
+    //   VALUE (
+    //     APPID, 
+    //     $this->APPID
+    //     )";
+
+    // $wpdb->query($wpdb->prepare($insertappid));
+ 
+    // dbDelta($insertappid);
   }
 
   public function getCurrentWeather($location)
   {
     // $codb = new Database;
+    
     $curlreq = "https://api.openweathermap.org/data/2.5/weather?q=$location&APPID=$this->APPID&lang=$this->lang&units=$this->units";
+    $curl = curl_init($curlreq);
+    // var_dump($curl);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $data = curl_exec($curl);
+    $data = json_decode($data, true);
+    echo "<pre>";
+    var_dump($data);
+    echo "</pre>";
+
+    if ($data === false) {
+      var_dump((curl_error($curl)));
+    } else {
+      $weather = [
+        'city' => $data['name'],
+        'temp' => $data['main']['temp'],
+        'feels_like' => $data['main']['feels_like'],
+        'temp_min' => $data['main']['temp_min'],
+        'temp_max' => $data['main']['temp_max'],
+        'humidity' => $data['main']['humidity'],
+        'wind_speed' => $data['wind']['speed'],
+        'wind_deg' => $data['wind']['deg'],
+        'weatherDesc'  => $data['weather']['0']['description'],
+        'weatherIcon' => $data['weather']['0']['icon']
+      ];
+
+
+      return $weather;
+    }
+    curl_close($curl);
+  }
+  public function getForecast($location)
+  {
+    // $codb = new Database;
+    $curlreq = "https://api.openweathermap.org/data/2.5/forecast?callback=response&q=$location&appid=$this->APPID&lang=$this->lang&$this->units";
+
     $curl = curl_init($curlreq);
     // var_dump($curl);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
