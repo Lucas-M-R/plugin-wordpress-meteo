@@ -10,13 +10,16 @@ class Openweather
   public $lang = 'fr';
   public $units = 'metric';
 
-public function setOpenWeather(){
-  $APPID = $_POST['appid'];
-  
-}
+public function __construct(){
+    if (isset ($_POST['appid']) && !empty ($_POST['appid'])){
+      $this->appidOpenWeather();
+    }
+  }
+// forecast 4 jour => https://api.openweathermap.org/data/2.5/forecast?callback=response&q=Jouhe&appid=55443e07418a117cdc0e7f607f08fc53&lang=fr&units=metric
 
-
-
+  public function appidOpenWeather(){
+    $APPID = strip_tags($_POST['appid']);    
+  }
 
   public function getCurrentWeather($location)
   {

@@ -4,8 +4,7 @@
     <button class="btn btn-outline-secondary btn-sm" type="submit" >Enregistrer la clé API</button>
 </form>
 
-
-<form action="" method="post">
+<form action="" method="POST">
     <select name="lang" id="langChoice">
         <option value="">--Selectionnez une langue --</option>
         <option value="af"> Afrikaans </option>
@@ -57,8 +56,6 @@
     </select>
 </form>
 
-<?php
-$appid = $_POST['appid'];
-
-echo 'voici votre appId: ' . $appid . '<br>'; ?>
-
+<form method="POST">
+    <input type="submit" name="FillCollins" value="Peupler la base de données" />
+</form>

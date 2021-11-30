@@ -1,6 +1,6 @@
 <?php
 
-global $wpdb;
+// global $wpdb;
 // var_dump($wpdb);
 // $dbpref = $wpdb->prefix;
 // var_dump($dbpref);
@@ -11,5 +11,11 @@ global $wpdb;
 
 
 
+// require (__DIR__ . ('/../includes/Controllers/Controller.php'));
 require (__DIR__ . ('/../includes/Views/configuration.php'));
 require (__DIR__ . ('/../includes/Views/currentweather.php'));
+Controller::adminPage();
+?> 
+<div class="container">
+    <?= $admin ?>
+</div>
