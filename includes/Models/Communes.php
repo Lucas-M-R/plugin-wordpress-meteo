@@ -1,25 +1,9 @@
 <?php
 class Communes
 {
-    public $SearchedCommune = '';
 
-    // public function __construct()
-    // {
-    //     if (isset ($_POST['communeSearch'])){
-    //         $this->displayCommunes();
-    //     }
-    // }
 
-// 
-    // public function displayCommunes(){
-    //     global $wpdb;
-    //     $search = sanitize_text_field($_POST['communeSearch']);
-    //     $table_name_communes = $wpdb->prefix . 'meteo_plugin_communes';
-    //     $results =  $wpdb->get_results('SELECT nom FROM ' . $table_name_communes . ' WHERE codepostal LIKE "%' . $search . '%" OR nom LIKE "%' . $search . '%" LIMIT 15;', ARRAY_A);
 
-    //     echo $results;
-   
-    // }
 
     public function setCommunes()
     {

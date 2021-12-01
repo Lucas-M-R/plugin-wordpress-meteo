@@ -20,9 +20,7 @@ class Openweather
     $key = $wpdb->get_row('SELECT option_value FROM ' . $wpdb->prefix . 'options WHERE option_name = "APPID"');
     if (isset($key)){
       $this->APPID = $key->option_value;
-    }
-    echo($key->option_value);
-  }
+    }  }
   // forecast 4 jour => https://api.openweathermap.org/data/2.5/forecast?callback=response&q=Jouhe&appid=55443e07418a117cdc0e7f607f08fc53&lang=fr&units=metric
 
   public function appidOpenWeather()
@@ -166,9 +164,9 @@ class Openweather
   public function accordCardinal($cardinal)
   {
     if (substr($cardinal, 0, 1) === "n" || (substr($cardinal, 0, 1) === "s")) {
-      $accordCardinal = 'au';
+      $accordCardinal = 'du';
     } else {
-      $accordCardinal = 'à l\'';
+      $accordCardinal = 'de l\'';
     }
     return $accordCardinal;
   }

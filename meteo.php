@@ -9,10 +9,6 @@ Author URI: https://lucasm.promo-93.codeur.online/portfolio
 */
 
 
-// function loadClass($class) {
-//   require __DIR__ . '/includes/Models/'.$class.'Class.php';
-// }
-// spl_autoload_register ('loadClass');
 require_once  __DIR__ . '/includes/Views/header.php';
 
 
@@ -66,6 +62,10 @@ require_once  __DIR__ . '/includes/Models/DataClass.php';
 require_once  __DIR__ . '/includes/Models/OpenweatherClass.php';
 require_once  __DIR__ . '/includes/Models/Communes.php';
 require_once  __DIR__ . '/includes/Controllers/Controller.php';
+require_once  __DIR__ . '/includes/Models/shortcode.php';
+
+
+
 
 
 // wp_enqueue_script ( 'script_meteo_plugin', __DIR__ . '/js/script_meteo_plugin.js', true );

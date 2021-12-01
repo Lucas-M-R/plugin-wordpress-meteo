@@ -1,31 +1,31 @@
-
-
-<?php 
-function appiform(){
+<?php
+function appiform()
+{
 
     global $wpdb;
-    $table_name = $wpdb->prefix.'options';
+    $table_name = $wpdb->prefix . 'options';
     $appi = $wpdb->get_row("SELECT option_value FROM $table_name WHERE option_name = 'APPID'", ARRAY_A);
-    // var_dump($appi);
-    // echo $appi['option_value'];
-    if (is_null($appi)){
+    if (is_null($appi)) {
         echo 'placeholder="Entre votre clé API ici"';
-    } else {        
-        echo 'value="'.$appi["option_value"].'"';
+    } else {
+        echo 'value="' . $appi["option_value"] . '"';
     }
-} ?>
+}
+
+
+
+
+
+
+?>
 
 
 <form action="" method="POST">
-    <h4>Pour obtenir une clé API il vous faut vous inscrire sur <a href="https://openweathermap.org" target="blank">Openweather</a><h4><br>
-    <input type="text" name="appid" <?= appiform() ?>>
-    <button class="btn btn-outline-secondary btn-sm" type="submit" >Enregistrer la clé API</button>
+    <h4>Pour obtenir une clé API il vous faut vous inscrire sur <a href="https://openweathermap.org" target="blank">Openweather</a>
+        <h4><br>
+            <input type="text" name="appid" <?= appiform() ?>>
+            <button class="btn btn-outline-secondary btn-sm" type="submit">Enregistrer la clé API</button>
 </form>
-
-
-
-
-
 
 
 <form action="" method="POST">
@@ -83,3 +83,46 @@ function appiform(){
 <form method="POST">
     <input type="submit" name="FillCollins" value="Peupler la base de données" />
 </form>
+
+
+
+<form action="" method="POST" autocomplete="off">
+    <label for="communeSearch">Chosissez une commune</label><br>
+    <input list="communes" id="communeSearch" oninput="searching(this.value)" name="communeSearch" placeholder="Code postal ou ville" />
+
+   <input type="submit" class="btn btn-success" value="C'est super!">
+</form> 
+
+<datalist id="communes">
+    <div id="options">
+        <!-- le script ajax fonction searching va dedans -->
+    </div>
+</datalist>
+<div id="currentweather"></div>
+
+<script>
+    let options = document.getElementById('options');
+
+    function searching(search) {
+        var ajax = new XMLHttpRequest();
+        // console.log(search);
+        // ajax.onreadystatechange = function() {
+        // ajax.responseType = 'json';
+        ajax.open('GET', '../wp-content/plugins/meteo/includes/Models/getcommunes.php?communeSearch=' + search);
+        ajax.onloadend = function() {
+            setlist(this.response)
+        };
+        ajax.send();
+    }
+
+    function setlist(response) {
+        let communes = JSON.parse(response);
+        console.log("-------------", communes);
+        options.innerHTML = "";
+        for (commune of communes) {
+            options.innerHTML += '<option value="' + commune.codepostal + ' ' + commune.nom + '">';
+        }
+    }
+
+
+</script>
