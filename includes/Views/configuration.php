@@ -13,12 +13,47 @@ function appiform()
 }
 
 
-
-
-
-
 ?>
+<script>
 
+function searching(search) {
+        var ajax = new XMLHttpRequest();
+        // console.log(search);
+        // ajax.onreadystatechange = function() {
+        // ajax.responseType = 'json';
+        ajax.open('GET', '../wp-content/plugins/meteo/includes/Models/getcommunes.php?communeSearch=' + search);
+        ajax.onloadend = function() {
+            setlist(this.response)
+        };
+        ajax.send();
+    }
+
+    function setlist(response) {
+        let communes = JSON.parse(response);
+        console.log("-------------", communes);
+        options.innerHTML = "";
+        for (commune of communes) {
+            options.innerHTML += '<option value="' + commune.codepostal + ' ' + commune.nom + '">';
+        }
+    }
+
+
+    function copyText() {
+        let copyText = document.getElementById("shortcode");        
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+        navigator.clipboard.writeText(copyText.value);
+        alert("Shortcode dans le presse-papiers: " + copyText.value);        
+        } 
+    function copyTextMini() {
+        let copyTextMini = document.getElementById("shortcodemini");
+        copyTextMini.select();
+        copyTextMini.setSelectionRange(0, 99999); /* For mobile devices */
+        navigator.clipboard.writeText(copyTextMini.value);
+        alert("Shortcode dans le presse-papiers: " + copyTextMini.value);
+        } 
+
+</script>
 
 <form action="" method="POST">
     <h4>Pour obtenir une clé API il vous faut vous inscrire sur <a href="https://openweathermap.org" target="blank">Openweather</a>
@@ -26,7 +61,6 @@ function appiform()
             <input type="text" name="appid" <?= appiform() ?>>
             <button class="btn btn-outline-secondary btn-sm" type="submit">Enregistrer la clé API</button>
 </form>
-
 
 <form action="" method="POST">
     <select name="lang" id="langChoice">
@@ -90,7 +124,7 @@ function appiform()
     <label for="communeSearch">Chosissez une commune</label><br>
     <input list="communes" id="communeSearch" oninput="searching(this.value)" name="communeSearch" placeholder="Code postal ou ville" />
 
-   <input type="submit" class="btn btn-success" value="C'est super!">
+   <input type="submit" class="btn btn-success"  value="C'est super!">
 </form> 
 
 <datalist id="communes">
@@ -100,29 +134,19 @@ function appiform()
 </datalist>
 <div id="currentweather"></div>
 
+<p>Votre Shortcode</p>
+<?php
+$shortcity = preg_replace('[\d]', '', $_POST['communeSearch']);
+$shortcity = sanitize_text_field($shortcity);?>
+<input type="text" id="shortcode"  value="[meteo ville=<?= $shortcity ?>]">
+<div class="btn" onclick="copyText()"><img src="https://www.svgrepo.com/show/29533/clipboard.svg" alt="" style="width:30px; height:30px;"></div>
+
+<input type="text" id="shortcodemini"  value="[meteomini ville=<?= $shortcity ?>]">
+<div class="btn" onclick="copyTextMini()"><img src="https://www.svgrepo.com/show/29533/clipboard.svg" alt="" style="width:30px; height:30px;"></div>
+    
+
 <script>
     let options = document.getElementById('options');
 
-    function searching(search) {
-        var ajax = new XMLHttpRequest();
-        // console.log(search);
-        // ajax.onreadystatechange = function() {
-        // ajax.responseType = 'json';
-        ajax.open('GET', '../wp-content/plugins/meteo/includes/Models/getcommunes.php?communeSearch=' + search);
-        ajax.onloadend = function() {
-            setlist(this.response)
-        };
-        ajax.send();
-    }
-
-    function setlist(response) {
-        let communes = JSON.parse(response);
-        console.log("-------------", communes);
-        options.innerHTML = "";
-        for (commune of communes) {
-            options.innerHTML += '<option value="' + commune.codepostal + ' ' + commune.nom + '">';
-        }
-    }
-
-
+    
 </script>

@@ -99,17 +99,19 @@ class Openweather
     }
     curl_close($curl);
   }
+
+  // getforecast('paris');
   public function getForecast($location)
   {
     // $codb = new Database;
     $curlreq = "https://api.openweathermap.org/data/2.5/forecast?callback=response&q=$location&appid=$this->APPID&lang=$this->lang&$this->units";
 
     $curl = curl_init($curlreq);
-    // var_dump($curl);
+    
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $data = curl_exec($curl);
     $data = json_decode($data, true);
-
+var_dump($data);
     if ($data === false) {
       var_dump((curl_error($curl)));
     } else {

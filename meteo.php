@@ -53,8 +53,6 @@ register_uninstall_hook(__FILE__, 'uninstall');
 
 
 
-
-
 define(SHORTINIT, true);
 require_once (ABSPATH . 'wp-load.php'); 
 require_once ( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -64,10 +62,10 @@ require_once  __DIR__ . '/includes/Models/Communes.php';
 require_once  __DIR__ . '/includes/Controllers/Controller.php';
 require_once  __DIR__ . '/includes/Models/shortcode.php';
 
+//add shortcodes in the widgets
+add_filter('widget_text', 'do_shortcode');
 
-
-
-
+// wp_register_style('style', __DIR__.'/includes/style/style.css');
 // wp_enqueue_script ( 'script_meteo_plugin', __DIR__ . '/js/script_meteo_plugin.js', true );
 
 // function script_meteo_plugin() {

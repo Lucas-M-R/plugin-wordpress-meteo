@@ -8,7 +8,6 @@
 if (isset ($_POST['communeSearch'])){
     $location = preg_replace('[\d]', '', $_POST['communeSearch']);
     $location = sanitize_text_field($location);
-    echo "<h3>". $location. "</h3><br/>";
     $currentWeather = new Openweather();
     $weather = $currentWeather->getCurrentWeather($location);
     $weatherImg = 'http://openweathermap.org/img/wn/' . $weather["weatherIcon"] . '@2x.png';
