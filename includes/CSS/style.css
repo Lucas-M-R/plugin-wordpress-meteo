@@ -1,60 +1,4 @@
-<?php
-// wp_enqueue_style('style', __DIR__ . '/includes/CSS/style.css', false, '1.1', 'all');
-if (isset($_POST['communeSearch']) && !empty($_POST['communeSearch'])) {
-    setShortCodeCity();
-}
 
-function  setshortCodeCity()
-{
-
-    global $wpdb;
-
-    $search = preg_replace('[\d]', '', $_POST['communeSearch']);
-    $search = sanitize_text_field($search);
-    $table_name_shortcodes = $wpdb->prefix . 'meteo_plugin_shortcodes';
-    $results =  $wpdb->query($wpdb->prepare('INSERT INTO ' . $table_name_shortcodes . '(shortcode) VALUE ("' . $search . '")'));
-}
-
-
-
-
-add_filter('widget_text', 'shortcode_unautop');
-add_filter('widget_text', 'do_shortcode');
-
-//_________________________________________________________SHORTCODE REGULAR
-
-function shortcode_meteo_full($city)
-{
-    $q = new Openweather();
-    return esc_attr($q->getmeteo_regular($city));
-}
-add_shortcode('meteofull', 'shortcode_meteo_full');
-
-//_________________________________________________________SHORTCODE COMPACT
-
-function shortcode_meteo($city)
-{
-    $q = new Openweather();
-    return esc_attr($q->getmeteo_compact($city));
-}
-add_shortcode('meteo', 'shortcode_meteo');
-
-//_________________________________________________________SHORTCODE MINI
-
-function shortcode_meteo_mini($city)
-{
-    $q = new Openweather();  
-    return esc_attr($q->getmeteo_mini($city));
-}
-add_shortcode('meteomini', 'shortcode_meteo_mini');
-
-
-// api.openweathermap.org/data/2.5/weather?q=geovreisset&appid=55443e07418a117cdc0e7f607f08fc53
-
-?>
-
-<style>
-    
 
 .meteoshort{
     width: 20rem;
@@ -217,5 +161,3 @@ add_shortcode('meteomini', 'shortcode_meteo_mini');
 
 .temp-32,
 .temp-33 {background-color: #6A5988;}
-
-</style>

@@ -63,10 +63,10 @@ require_once  __DIR__ . '/includes/Controllers/Controller.php';
 require_once  __DIR__ . '/includes/Models/shortcode.php';
 
 //add shortcodes in the widgets
-add_filter('widget_text', 'do_shortcode');
+// add_filter('widget_text', 'do_shortcode');
 
-// wp_register_style('style', __DIR__.'/includes/style/style.css');
-// wp_enqueue_script ( 'script_meteo_plugin', __DIR__ . '/js/script_meteo_plugin.js', true );
+// wp_register_style('style', __DIR__.'/includes/CSS/style.css');
+
 
 // function script_meteo_plugin() {
 //     wp_enqueue_script( 'script_meteo_plugin', plugins_url( '/js/script_meteo_plugin.js', __FILE__ ), '1.0.0.', true);
