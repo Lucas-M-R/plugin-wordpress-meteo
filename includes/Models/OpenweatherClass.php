@@ -315,10 +315,10 @@ class Openweather
       echo '<div class="meteothumb temp' . $temp . '"><img src="' . $weatherImg . '">';
       echo $temp . '°C</div>';
       echo '<div class="textdefilbox temp' . $temp . '">';
-      echo '<div>Le temps est ' . $weather['weatherDesc'];
-      echo ' à ' . $weather['city'] . ' - ';
-      echo 'la température ressentie est de '.round($weather['feels_like']) . '°C - ';
-      echo 'Le vent souffle à ' . round($weather['wind_speed']) . 'km/h';
+      echo '<div>' . $weather['weatherDesc'];
+      echo ' sur ' . $weather['city'] . ' - ';
+      echo ' la température ressentie est de '.round($weather['feels_like']) . '°C - ';
+      echo ' Le vent souffle à ' . round($weather['wind_speed']) . 'km/h';
       if (round($weather['wind_speed']) < round($weather['wind_gust'])) {
         echo ', avec des rafales à ' . round($weather['wind_gust']) . 'km/h.';
       } else {

@@ -11,8 +11,9 @@ function appiform()
     }
 }
 
-
 ?>
+
+
 <script>
     function searching(search) {
         var ajax = new XMLHttpRequest();
@@ -43,6 +44,7 @@ function appiform()
         navigator.clipboard.writeText(copyTextFull.value);
         alert("Shortcode dans le presse-papiers: " + copyTextFull.value);
     }
+
     function copyText() {
         let copyText = document.getElementById("shortcode");
         copyText.select();
@@ -86,46 +88,47 @@ function appiform()
 
         <datalist id="communes">
             <div id="options">
-                <!-- le script ajax fonction searching va dedans -->
+                <!-- le script ajax fonction searching va là dedans -->
             </div>
         </datalist>
         <div id="currentweather"></div>
 
-        <p>Votre Shortcode</p>
+        
         <?php
         $shortcity = preg_replace('[\d]', '', $_POST['communeSearch']);
         $shortcity = sanitize_text_field($shortcity); ?>
-        
-        
-        
-        
+
+
+
+        <label for="shortcodeFull">Votre Shortcode</label>
         <input type="text" id="shortcodeFull" value="[meteofull ville=<?= $shortcity ?>]">
         <div class="btn" onclick="copyTextFull()"><img src="https://www.svgrepo.com/show/29533/clipboard.svg" alt="" style="width:30px; height:30px;"></div>
 
+        <label for="shortcodeFull">Votre Shortcode</label>
         <input type="text" id="shortcode" value="[meteo ville=<?= $shortcity ?>]">
         <div class="btn" onclick="copyText()"><img src="https://www.svgrepo.com/show/29533/clipboard.svg" alt="" style="width:30px; height:30px;"></div>
 
+        <label for="shortcodeFull">Votre Shortcode</label>
         <input type="text" id="shortcodemini" value="[meteomini ville=<?= $shortcity ?>]">
         <div class="btn" onclick="copyTextMini()"><img src="https://www.svgrepo.com/show/29533/clipboard.svg" alt="" style="width:30px; height:30px;"></div>
 
 
     </div>
 
-
-
     <!-- onglet configuration -->
+
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
         <div class="m-3 d-flex">
-            <form action="" method="POST" >
-                <label class="form-label">Pour obtenir une clé API il vous faut vous inscrire sur <a href="https://openweathermap.org" target="blank">Openweather</a></label><br/>
+            <form action="" method="POST">
+                <label class="form-label">Pour obtenir une clé API il vous faut vous inscrire sur <a href="https://openweathermap.org" target="blank">Openweather</a></label><br />
                 <input type="text" name="appid" <?= appiform() ?>>
                 <input class="btn btn-outline-secondary btn-sm" type="submit" value="Enregistrer la clé API">
-                       <input type="submit" name="FillCollins" value="Peupler la base de données" />
 
             </form>
-                    <form method="POST">
-        </form>
+            <form method="POST">
+                <input type="submit" name="FillCollins" value="Peupler la base de données" />
+            </form>
         </div>
 
     </div>
